@@ -175,11 +175,14 @@ chrome.storage.local.get('tab_modifier', function (items) {
         };
         
         // Set title
-        if (rule.tab.title !== null) {
-            if (document.title !== null) {
-                document.title = processTitle(location.href, document.title);
+        // Refresh every 3s for pages not refreshing when contents are changed
+        setInterval(function () {
+            if (rule.tab.title !== null) {
+                if (document.title !== null) {
+                    document.title = processTitle(location.href, document.title);
+                }
             }
-        }
+        }, 3000);
         
         var title_changed_by_me = false, observer_title;
         
